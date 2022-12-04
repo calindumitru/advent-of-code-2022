@@ -20,4 +20,3 @@ fun <T> List<T>.toPair(): Pair<T, T> {
     return (this[0] to this[1])
 }
 
-fun printAnswer(question: String, answer: Int) = println("$question \nAnswer: \n$answer")

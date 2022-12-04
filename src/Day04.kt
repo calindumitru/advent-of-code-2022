@@ -1,22 +1,21 @@
 fun main() {
-    fun part1(input: List<String>): Int {
+    val part1 = Implementation(
+        question = "In how many assignment pairs does one range fully contain the other?",
+        expectedAnswerForExample = 2
+    ) { input ->
         val assignments = input.map { convert(it) }
-        return assignments.filter { it.fullyOverlaps() }.size
+        return@Implementation assignments.filter { it.fullyOverlaps() }.size
     }
 
-    fun part2(input: List<String>): Int {
+    val part2 = Implementation(
+        question = "In how many assignment pairs does one range fully contain the other?",
+        expectedAnswerForExample = 4
+    ) { input ->
         val assignments = input.map { convert(it) }
-        return assignments.filter { it.havingOverlap() }.size
+        return@Implementation assignments.filter { it.havingOverlap() }.size
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("day4_example")
-    check(part1(testInput) == 2)
-    check(part2(testInput) == 4)
-
-    val input = readInput("day4")
-    printAnswer("In how many assignment pairs does one range fully contain the other?", part1(input))
-    printAnswer("In how many assignment pairs do the ranges overlap?", part2(input))
+    OhHappyDay(4).checkResults(part1, part2)
 }
 
 fun convert(line: String): Assignment {
