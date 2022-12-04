@@ -8,7 +8,7 @@ fun main() {
     }
 
     val part2 = Implementation(
-        question = "In how many assignment pairs does one range fully contain the other?",
+        question = "In how many assignment pairs do the ranges overlap?",
         expectedAnswerForExample = 4
     ) { input ->
         val assignments = input.map { convert(it) }
