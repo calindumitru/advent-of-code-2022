@@ -18,17 +18,17 @@ fun main() {
     OhHappyDay(4).checkResults(part1, part2)
 }
 
-fun convert(line: String): Assignment {
+private fun convert(line: String): Assignment {
     val (r1, r2) = line.split(",").toPair()
     return Assignment(toElfSection(r1), toElfSection(r2))
 }
 
-fun toElfSection(r: String): ElfSection {
+private fun toElfSection(r: String): ElfSection {
     val (low, high) = r.split("-").toPair()
     return ElfSection(low.toInt(), high.toInt())
 }
 
-class Assignment(private val elf1: ElfSection, private val elf2: ElfSection) {
+private class Assignment(private val elf1: ElfSection, private val elf2: ElfSection) {
     fun fullyOverlaps(): Boolean {
         return elf1.contains(elf2) || elf2.contains(elf1)
     }
@@ -36,7 +36,7 @@ class Assignment(private val elf1: ElfSection, private val elf2: ElfSection) {
         return elf1.overlaps(elf2)
     }
 }
-class ElfSection(private val min: Int, private val max: Int) {
+private class ElfSection(private val min: Int, private val max: Int) {
     fun contains(second: ElfSection): Boolean {
         return this.min >= second.min && this.max <= second.max
     }
