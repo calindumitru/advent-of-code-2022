@@ -2,8 +2,6 @@ import java.util.*
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.regex.Pattern
 
-//move (\d+) from (\d+) to (\d+)
-
 private val PATTERN = Pattern.compile("move (?<count>\\d+) from (?<source>\\d+) to (?<destination>\\d+)")
 
 fun main() {
@@ -30,7 +28,7 @@ fun main() {
         val topCrates = cargoPlane.getTopCrates()
         return@Implementation topCrates.joinToString(separator = "")
     }
-    OhHappyDay(5).checkResults(part1, part2)
+    OhHappyDay(5, part1, part2).checkResults()
 }
 
 fun convertCargo(it: List<String>): CargoPlane {

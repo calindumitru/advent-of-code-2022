@@ -1,6 +1,7 @@
-class OhHappyDay(private val dayNumber: Int) {
-
-    fun checkResults(part1: Implementation<*>, part2: Implementation<*>) {
+class OhHappyDay(private val dayNumber: Int,
+                 private val part1: Implementation<*>,
+                 private val part2: Implementation<*> = emptyImplementation) {
+    fun checkResults() {
         // test if implementation meets criteria from the description, like:
         val testInput = readInput("day${dayNumber}_example")
         checkImplementation(part1, testInput)
@@ -28,6 +29,6 @@ class Implementation<T>(
 
 }
 
-val emptyImplementation = Implementation("Haven't reached part 2", 0) {
+val emptyImplementation = Implementation("Haven't reached this part..", 0) {
     return@Implementation 0
 }

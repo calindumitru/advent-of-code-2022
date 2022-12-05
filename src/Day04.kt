@@ -15,7 +15,7 @@ fun main() {
         return@Implementation assignments.filter { it.havingOverlap() }.size
     }
 
-    OhHappyDay(4).checkResults(part1, part2)
+    OhHappyDay(4, part1, part2).checkResults()
 }
 
 private fun convert(line: String): Assignment {
