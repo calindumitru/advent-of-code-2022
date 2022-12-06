@@ -2,11 +2,12 @@ class OhHappyDay(private val dayNumber: Int,
                  private val part1: Implementation<*>,
                  private val part2: Implementation<*> = emptyImplementation) {
     fun checkResults() {
-        // test if implementation meets criteria from the description, like:
+        // test if implementation meets criteria from the description
         val testInput = readInput("day${dayNumber}_example")
         checkImplementation(part1, testInput)
         checkImplementation(part2, testInput)
 
+        //test implementation against the puzzle input
         val input = readInput("day${dayNumber}")
         part1.printAnswer(input)
         if (part2 !== emptyImplementation) {
