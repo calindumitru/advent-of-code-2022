@@ -3,20 +3,25 @@ import java.util.ArrayDeque
 fun main() {
     val part1 = Implementation(
         "How many characters need to be processed before the first start-of-packet marker is detected?",
-    7) {
+    10) {
         lines -> detectSignal(lines.first())
     }
-    OhHappyDay(dayNumber = 6, part1).checkResults()
+    val part2 = Implementation(
+        "How many characters need to be processed before the first start-of-packet marker is detected?",
+    29) {
+        lines -> detectSignal(lines.first(), 14)
+    }
+    OhHappyDay(dayNumber = 6, part1, part2).checkResults()
 }
 
-fun detectSignal(signal: String): Int {
+fun detectSignal(signal: String, bufferSize: Int = 4): Int {
     val arrayDeque = ArrayDeque<Char>()
     for (i in signal.indices) {
         arrayDeque.add(signal[i])
-        if (arrayDeque.size == 4) {
+        if (arrayDeque.size == bufferSize) {
             val set = HashSet<Char>(arrayDeque)
             println("Checking $set")
-            if (set.size == 4) {
+            if (set.size == bufferSize) {
                 return i + 1
             }
             arrayDeque.pop()
