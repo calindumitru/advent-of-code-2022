@@ -1,17 +1,15 @@
+import kotlin.math.max
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    val part1 = Implementation("Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?",
+        24000) { lines ->
+        val joinToString = lines.joinToString("+")
+        println(joinToString)
+        val maxCalories = joinToString.split("++")
+            .filter { it.isNotBlank() }.maxOf { elf -> elf.split("+").sumOf { it.toInt() } }
+
+        println("calories: $maxCalories")
+        return@Implementation maxCalories
     }
-
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    OhHappyDay(1, part1).checkResults()
 }
