@@ -7,7 +7,7 @@ fun main() {
         lines -> detectSignal(lines.first())
     }
     val part2 = Implementation(
-        "How many characters need to be processed before the first start-of-packet marker is detected?",
+        "How many characters need to be processed before the first start-of-message marker is detected?",
     29) {
         lines -> detectSignal(lines.first(), 14)
     }
