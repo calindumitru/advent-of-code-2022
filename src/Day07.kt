@@ -1,5 +1,7 @@
 import java.util.function.Predicate
 
+const val TOTAL = 70000000
+const val UNUSED = 30000000
 fun main() {
     val part1 = Implementation("Find all of the directories with a total size of at most 100000. What is the sum of the total sizes of those directories?",
         95437) { lines ->
@@ -8,7 +10,15 @@ fun main() {
         return@Implementation root.find { t -> t.completeSize() <= 100000 }.sumOf { it.completeSize() }
     }
 
-    OhHappyDay(7, part1).checkResults()
+    val part2 = Implementation("Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update. What is the total size of that directory?",
+        24933642) { lines ->
+        val root = convertToGraph(lines)
+
+        val limit = UNUSED - (TOTAL - root.completeSize())
+        return@Implementation root.find { t -> t.completeSize() >= limit }.minOf { it.completeSize() }
+    }
+
+    OhHappyDay(7, part1, part2).checkResults()
 }
 
 fun convertToGraph(lines: List<String>): Dir {
