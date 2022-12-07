@@ -57,10 +57,9 @@ data class Dir(val name:String,
     }
 
     fun find(p: Predicate<Dir>): List<Dir> {
-        val flatten = flatten()
-        return flatten.filter { p.test(it) }
+        val flattened = flatten()
+        return flattened.filter { p.test(it) }
     }
-
     private fun flatten(): List<Dir> = children + children.flatMap { it.flatten() }
     
     fun completeSize() : Int = this.size + children.sumOf { cc -> cc.completeSize() }
