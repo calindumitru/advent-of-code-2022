@@ -5,7 +5,13 @@ fun main() {
         return@Implementation map.countVisible()
     }
 
-    OhHappyDay(8, part1).checkResults()
+    val part2 = Implementation("Consider your map; how many trees are visible from outside the grid?",
+        8) { lines ->
+        val map = convertToMap(lines)
+        return@Implementation map.calculateScenicScore()
+    }
+
+    OhHappyDay(8, part1, part2).checkResults()
 }
 
 fun convertToMap(lines: List<String>): Map {
@@ -78,6 +84,73 @@ data class Map(private val width: Int, private val height: Int, private val matr
             }
         }
         return count
+    }
+
+    fun calculateScore(x: Int ,y:Int, tree: Int): Int {
+        return calculateRight(x, y, tree) * calculateLeft(x, y, tree) * calculateUp(y, x, tree) * calculateDown(y, x, tree)
+    }
+
+    private fun calculateDown(y: Int, x: Int, tree: Int): Int {
+        var score = 0
+        for (i in y - 1 downTo 0) {
+            if (matrix[x]!![i]!! < tree) {
+                score++
+            } else {
+                score++
+                break
+            }
+        }
+        return score
+    }
+
+    private fun calculateUp(y: Int, x: Int, tree: Int): Int {
+        var score = 0
+        for (i in y + 1 until height) {
+            if (matrix[x]!![i]!! < tree) {
+                score++
+            } else {
+                score++
+                break
+            }
+        }
+        return score
+    }
+
+    private fun calculateLeft(x: Int, y: Int, tree: Int): Int {
+        var score = 0
+        for (i in x - 1 downTo 0) {
+            if (matrix[i]!![y]!! < tree) {
+                score++
+            } else {
+                score++
+                break
+            }
+        }
+        return score
+    }
+
+    private fun calculateRight(x: Int, y: Int, tree: Int): Int {
+        var score = 0
+        for (i in x + 1 until width) {
+            if (matrix[i]!![y]!! < tree) {
+                score++
+            }else {
+                score++
+                break
+            }
+        }
+        return score
+    }
+
+    fun calculateScenicScore(): Int {
+        val scores = mutableListOf<Int>()
+        for (i in 0 until height) {
+            for (j in 0 until width) {
+                //println("scenic score: ${matrix[i]!![j]!!} [${i+1},${j+1} ${calculateScore(i,j,matrix[i]!![j]!!)}")
+                scores.add(calculateScore(i,j,matrix[i]!![j]!!))
+            }
+        }
+        return scores.max()
     }
 
     fun printMatrix() {
