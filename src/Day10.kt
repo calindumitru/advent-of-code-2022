@@ -1,23 +1,32 @@
-import java.lang.IllegalArgumentException
-import java.util.LinkedList
-import java.util.Queue
+import java.util.*
 
 fun main() {
     val part1 = Implementation("Find the signal strength during the 20th, 60th, 100th, 140th, 180th, and 220th cycles. What is the sum of these six signal strengths?",
         13140) { lines ->
         val instructions = mapInstructions(lines)
-        println(instructions)
         val process = Process(instructions)
         process.processInstructions()
         return@Implementation process.getSnapshotsSum()
     }
 
-    OhHappyDay(10, part1).checkResults()
+    val part2 = Implementation("Render the image given by your program. What eight capital letters appear on your CRT?",
+        "NO ANSWER") { lines ->
+        val instructions = mapInstructions(lines)
+        val process = Process(instructions)
+        process.processMonitor()
+        process.draw()
+        return@Implementation "NO ANSWER"
+    }
+
+    OhHappyDay(10, part1, part2).checkResults()
 }
 
 data class Process(val instructions: List<Op>) {
     var x = 1
     val snapshots = mutableListOf<Pair<Int,Int>>()
+    val monitor = mutableListOf<CharArray>()
+
+    private fun newLine() = "........................................".toCharArray()
 
     fun processInstructions() {
         val q = LinkedList(instructions)
@@ -34,8 +43,35 @@ data class Process(val instructions: List<Op>) {
         }
     }
 
+    fun processMonitor() {
+        val q = LinkedList(instructions)
+        var currentLine = newLine()
+        for (i in 0 until 240) {
+            val pixelPosition = i % 40
+            if (pixelPosition == 0) {
+                currentLine = newLine()
+                monitor.add(currentLine)
+            }
+            val instruction = q.first()
+            instruction.entropy()
+            if (pixelPosition in (x-1)..(x+1)) {
+                currentLine[pixelPosition] = '#'
+            }
+            if (instruction.cycle == 0) {
+                x = instruction.apply(x)
+                q.removeFirst()
+            }
+        }
+    }
+
+    fun draw() {
+        monitor.forEach{
+            println(String(it))
+        }
+    }
+
     fun getSnapshotsSum(): Int {
-        println(snapshots)
+        //println(snapshots)
         return snapshots.sumOf { it.first * it.second }
     }
 }
