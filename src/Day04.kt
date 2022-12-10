@@ -2,16 +2,16 @@ fun main() {
     val part1 = Implementation(
         question = "In how many assignment pairs does one range fully contain the other?",
         expectedAnswerForExample = 2
-    ) { input ->
-        val assignments = input.map { convert(it) }
+    ) { lines ->
+        val assignments = lines.map { convert(it) }
         return@Implementation assignments.filter { it.fullyOverlaps() }.size
     }
 
     val part2 = Implementation(
         question = "In how many assignment pairs do the ranges overlap?",
         expectedAnswerForExample = 4
-    ) { input ->
-        val assignments = input.map { convert(it) }
+    ) { lines ->
+        val assignments = lines.map { convert(it) }
         return@Implementation assignments.filter { it.havingOverlap() }.size
     }
 
